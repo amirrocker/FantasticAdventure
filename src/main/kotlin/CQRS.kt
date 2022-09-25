@@ -14,3 +14,25 @@
  *              to provide an enhanced read experience. Meaning a fast, performant serving of the data.
  *
  */
+
+// lets start with the commands
+data class CreateUserCommand(
+    val userId: UserId,
+    val userAggregate: UserAggregate
+)
+
+data class UpdateUserCommand(
+    val userId: UserId,
+    val userAggregate: UserAggregate
+)
+
+data class UpdateUserAddressCommand(
+    val userId: UserId,
+    val addresses: Set<AddressVO>
+)
+
+data class UpdateUserContactCommand(
+    val userId: UserId,
+    val contactVOS: Set<ContactVO>
+)
+

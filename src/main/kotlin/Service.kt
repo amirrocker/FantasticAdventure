@@ -9,18 +9,28 @@ import java.util.*
 //}
 
 
-/**
- * with event sourcing
- */
+//**
+// * with event sourcing
+// */
+//class UserService(
+//    val repository: EventStore
+//) {
+//
+//    fun createUser(user: UserAggregate) = repository.addDomainEvent(
+//        eventId = EventId(UUID.randomUUID()),
+//        domainEvent = UserCreatedDomainEvent(
+//            user = user
+//        )
+//    )
+//}
+
+
 class UserService(
-    val repository: EventStore
+    val store: MutableMap<String, UserAggregate> = mutableMapOf()
 ) {
 
-    fun createUser(user: UserAggregate) = repository.addDomainEvent(
-        eventId = EventId(UUID.randomUUID()),
-        domainEvent = UserCreatedDomainEvent(
-            user = user
-        )
-    )
+    fun addUser(user:UserAggregate) {
+        store.put(user.)
+    }
 
 }

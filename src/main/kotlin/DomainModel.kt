@@ -10,7 +10,7 @@ value class FirstName(val value: String)
 value class LastName(val value: String)
 
 @JvmInline
-value class ContactSetVO(val value: Set<Contact>)
+value class ContactSetVO(val value: Set<ContactVO>)
 
 @JvmInline
 value class ContactType(val value: String)
@@ -42,7 +42,7 @@ fun createUserAggregate() = UserAggregate(
     ),
     ContactSetVO(
         setOf(
-            Contact(
+            ContactVO(
                 type = ContactType("ContactType"),
                 detail = ContactDetails("contactDetail")
             )
@@ -56,21 +56,12 @@ fun createUserAggregate() = UserAggregate(
     )
 )
 
-
-// User aggregate
-data class UserAggregate(
-    val userId: UserId,
-    val personalInformation: PersonalInformationVO,
-    val contactSet: ContactSetVO,
-    val address: AddressVO,
-)
-
 data class PersonalInformationVO(
     val firstName: FirstName,
     val lastName: LastName,
 )
 
-data class Contact(
+data class ContactVO(
     val type: ContactType,
     val detail: ContactDetails
 )
@@ -81,3 +72,31 @@ data class AddressVO(
     val areaCode: AreaCode,
     val city: City,
 )
+
+// User aggregate - most simple version
+// no cqrs - not even a real aggregate
+//data class UserAggregateV1(
+//    val userId: UserId,
+//    val personalInformation: PersonalInformationVO,
+//    val contactSet: ContactSetVO,
+//    val address: AddressVO,
+//)
+
+// User aggregate - now as CQRS Version
+data class UserAggregate(
+    val userWriteRepository: UserRepository,
+    val userId: UserId,
+    val personalInformation: PersonalInformationVO,
+    val contactSet: ContactSetVO,
+    val address: AddressVO,
+) {
+
+    fun handleCreateUserCommand(createUserCommand: CreateUserCommand) =
+        createUserCommand.userAggregate.apply {
+            userWriteRepository.addUser(this)
+        }
+
+
+
+}
+
