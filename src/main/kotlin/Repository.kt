@@ -15,15 +15,19 @@ interface Repository
 
 interface UserRepository {
     fun addUser(user:UserAggregate)
+    fun getUser(userId: UserId):UserAggregate
 }
 
 class UserWriteRepository(
     val service : UserService
-) {
+): UserRepository {
 
-    fun addUser(user: UserAggregate) {
+    override fun addUser(user: UserAggregate) {
         service.addUser(user)
     }
+
+    // avoid !! if possible
+    override fun getUser(userId: UserId) = service.store.get(userId.value)!!
 
 }
 

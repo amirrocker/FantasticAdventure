@@ -35,6 +35,9 @@ value class City(val value: String)
 
 // temp User aggregate stub
 fun createUserAggregate() = UserAggregate(
+    UserWriteRepository(
+        UserService()
+    ),
     UserId("userId1"),
     PersonalInformationVO(
         FirstName("max"),
@@ -96,7 +99,11 @@ data class UserAggregate(
             userWriteRepository.addUser(this)
         }
 
-
-
+    fun handleUpdateUserCommand(updateUserCommand: UpdateUserCommand) =
+        userWriteRepository.getUser(updateUserCommand.userId).apply {
+            address.copy(street = Street("new address"))
+        }.also {
+            userWriteRepository.addUser(it)
+        }
 }
 
