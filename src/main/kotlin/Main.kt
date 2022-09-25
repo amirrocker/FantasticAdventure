@@ -2,5 +2,5 @@ class Main {
 }
 
 fun main() {
-    println("Hello gradle project with kotlin lib")
+    println("develop branch created to work on.")
 }
