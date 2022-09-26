@@ -1,5 +1,3 @@
-import java.util.*
-
 // A Service that exposes a number of CRUD operations on the the domain model
 
 //class UserService(
@@ -24,13 +22,12 @@ import java.util.*
 //    )
 //}
 
-
+// with event sourcing and cqrs
 class UserService(
     val store: MutableMap<String, UserAggregate> = mutableMapOf()
 ) {
 
-    fun addUser(user:UserAggregate) {
-        store.put(user.)
-    }
+    fun addUser(user: UserAggregate) =
+        store.apply { this[user.userId.value] = user }
 
 }
