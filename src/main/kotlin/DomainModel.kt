@@ -33,31 +33,31 @@ value class AreaCode(val value: String)
 @JvmInline
 value class City(val value: String)
 
-// temp User aggregate stub
-fun createUserAggregate() = UserAggregate(
-    UserWriteRepository(
-        UserService()
-    ),
-    UserId("userId1"),
-    PersonalInformationVO(
-        FirstName("max"),
-        LastName("Mustermann")
-    ),
-    ContactSetVO(
-        setOf(
-            ContactVO(
-                type = ContactType("ContactType"),
-                detail = ContactDetails("contactDetail")
-            )
-        )
-    ),
-    address = AddressVO(
-        street = Street("someStreet"),
-        houseNumber = HouseNumber("someStreet"),
-        areaCode = AreaCode("area code a"),
-        city = City("someStreet"),
-    )
-)
+//// temp User aggregate stub
+//fun createUserAggregate() = UserAggregate(
+//    UserWriteRepository(
+//        UserWriteService()
+//    ),
+//    UserId("userId1"),
+//    PersonalInformationVO(
+//        FirstName("max"),
+//        LastName("Mustermann")
+//    ),
+//    ContactSetVO(
+//        setOf(
+//            ContactVO(
+//                type = ContactType("ContactType"),
+//                detail = ContactDetails("contactDetail")
+//            )
+//        )
+//    ),
+//    address = AddressVO(
+//        street = Street("someStreet"),
+//        houseNumber = HouseNumber("someStreet"),
+//        areaCode = AreaCode("area code a"),
+//        city = City("someStreet"),
+//    )
+//)
 
 data class PersonalInformationVO(
     val firstName: FirstName,
@@ -87,8 +87,9 @@ data class AddressVO(
 
 // User aggregate - now as CQRS Version
 data class UserAggregate(
-    val userWriteRepository: UserRepository,
     val userId: UserId,
+    val userWriteRepository: UserWriteRepository,
+    val userReadRepository: UserReadRepository,
     val personalInformation: PersonalInformationVO,
     val contactSet: ContactSetVO,
     val address: AddressVO,

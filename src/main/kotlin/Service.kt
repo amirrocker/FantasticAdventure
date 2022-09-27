@@ -23,11 +23,28 @@
 //}
 
 // with event sourcing and cqrs
-class UserService(
+class UserWriteService(
     val store: MutableMap<String, UserAggregate> = mutableMapOf()
 ) {
 
     fun addUser(user: UserAggregate) =
         store.apply { this[user.userId.value] = user }
 
+}
+
+class UserReadService(
+    val store: MutableMap<String, UserAggregate> = mutableMapOf()
+) {
+
+    fun getUserAddress(userId: UserId) = AddressVO(
+        Street("Some Street"),
+        HouseNumber("Some Houser Number"),
+        AreaCode("Some Area Code"),
+        City("Kupiansk")
+    )
+
+    fun getUserContact(userId: UserId) = ContactVO(
+        ContactType("contact type = email, sms or such"),
+        ContactDetails("contact details")
+    )
 }
