@@ -17,13 +17,13 @@
 
 // lets start with the commands
 data class CreateUserCommand(
-    val userId: UserId,
-    val userAggregate: UserAggregate
+    val userId: UserId, // technically don't need this.
+    val user: User
 )
 
 data class UpdateUserCommand(
     val userId: UserId,
-    val userAggregate: UserAggregate
+    val user: User
 )
 
 data class UpdateUserAddressCommand(
@@ -35,4 +35,5 @@ data class UpdateUserContactCommand(
     val userId: UserId,
     val contactVOS: Set<ContactVO>
 )
+
 

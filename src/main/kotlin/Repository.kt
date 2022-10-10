@@ -1,21 +1,9 @@
-import java.util.*
-
-// we define a very simple in-memory repository
-//class UserRepository(
-//    val eventStore: Map<String, UserAggregate> = emptyMap()
-//) {
-//    fun addUser(user: UserAggregate) {
-////        val addUserEvent = AddUserEvent(EventId(), user.userId, user)
-//    }
-//}
-
-
 
 interface UserRepository
 
 interface UserWriteRepository : UserRepository {
-    fun addUser(user:UserAggregate)
-    fun getUser(userId: UserId):UserAggregate
+    fun addUser(user:User)
+    fun getUser(userId: UserId):User
 }
 
 interface UserReadRepository : UserRepository {
@@ -27,7 +15,7 @@ class InMemoryUserWriteRepository(
     val service : UserWriteService
 ): UserWriteRepository {
 
-    override fun addUser(user: UserAggregate) {
+    override fun addUser(user: User) {
         service.addUser(user)
     }
 

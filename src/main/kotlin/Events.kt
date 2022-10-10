@@ -1,5 +1,5 @@
 import java.time.LocalDate
-import java.util.*
+import java.util.UUID
 
 
 sealed class DomainEvent(
@@ -9,16 +9,16 @@ sealed class DomainEvent(
 )
 
 class UserCreatedDomainEvent(
-    val user: UserAggregate
+    val user: User
 ) : DomainEvent()
 
 class UserAddressAddedDomainEvent(
-    val user: UserAggregate,
+    val user: User,
     val address: AddressVO
 ) : DomainEvent()
 
 class UserAddressRemovedDomainEvent(
-    val user: UserAggregate,
+    val user: User,
     val address: AddressVO
 ) : DomainEvent()
 
@@ -35,7 +35,7 @@ class UserContactRemovedDomainEvent(
 
 data class AddUserEvent(
     val eventId: EventId,
-    val userAggregate: UserAggregate
+    val userAggregate: User
 ) : DomainEvent()
 
 class EventStore(
