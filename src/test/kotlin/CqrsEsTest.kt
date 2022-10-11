@@ -1,4 +1,5 @@
 import aggregates.UserAggregate
+import org.amshove.kluent.shouldBe
 import org.junit.jupiter.api.Test
 import java.util.*
 
@@ -29,6 +30,8 @@ class CqrsEsTest {
         val createUserCommand = CreateUserCommand(userId, user)
 
         events + userAggregate.handleCreateUserCommand(createUserCommand)
+
+        events.count() shouldBe 1
 
     }
 }

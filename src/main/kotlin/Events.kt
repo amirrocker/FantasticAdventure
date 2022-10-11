@@ -1,6 +1,7 @@
 import java.time.LocalDate
 import java.util.UUID
 
+typealias EventId = String
 
 sealed class DomainEvent(
     // every event must be unique
@@ -42,16 +43,16 @@ class EventStore(
     val events: MutableMap<String, List<DomainEvent>> = mutableMapOf()
 ) {
 
-    fun addDomainEvent( eventId: EventId, domainEvent: DomainEvent) {
-        if(events.containsKey<Any>(eventId.value)) {
-            val eventList = events[eventId.value.toString()]
+    fun addDomainEvent(id: EventId, domainEvent: DomainEvent) {
+        if(events.containsKey<Any>(id)) {
+            val eventList = events[id]
             eventList?.union(listOf(domainEvent))
         } else {
-            events.put(eventId.value.toString(), listOf(domainEvent))
+            events.put(id, listOf(domainEvent))
         }
     }
 
-    fun getEvents(eventId: EventId):List<DomainEvent> =
-        events[eventId.value.toString()].orEmpty()
+    fun getEvents(eventId: EventId ):List<DomainEvent> =
+        events[eventId].orEmpty()
 
 }

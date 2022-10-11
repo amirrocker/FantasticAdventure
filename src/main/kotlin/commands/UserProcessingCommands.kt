@@ -15,25 +15,15 @@
  *
  */
 
-// lets start with the commands
 data class CreateUserCommand(
-    val userId: UserId, // technically don't need this.
-    val user: User
+    val userId: UserId,
+    val firstName: FirstName,
+    val lastName: LastName
 )
 
 data class UpdateUserCommand(
     val userId: UserId,
-    val user: User
+    val addresses: Set<AddressVO>,
+    val contacts: Set<ContactVO>
 )
-
-data class UpdateUserAddressCommand(
-    val userId: UserId,
-    val addresses: Set<AddressVO>
-)
-
-data class UpdateUserContactCommand(
-    val userId: UserId,
-    val contactVOS: Set<ContactVO>
-)
-
 

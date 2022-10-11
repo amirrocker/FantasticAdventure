@@ -18,8 +18,8 @@ value class ContactType(val value: String)
 @JvmInline
 value class ContactDetails(val value: String)
 
-@JvmInline
-value class EventId(val value: UUID)
+//@JvmInline
+//value class EventId(val value: UUID)
 
 @JvmInline
 value class Street(val value: String)
@@ -44,15 +44,17 @@ data class User(
     val addresses: Set<AddressVO> = emptySet()
 )
 
-data class PersonalInformationVO(
-    val firstName: FirstName,
-    val lastName: LastName,
+data class UserContact(
+    val contactByType: Map<String, Set<ContactVO>> = emptyMap()
+)
+
+data class UserAddress(
+    val addressByRegion: Map<String, Set<AddressVO>> = emptyMap()
 )
 
 data class ContactVO(
     val type: ContactType,
     val detail: ContactDetails,
-    val contactByType: Map<String, Set<ContactVO>> = emptyMap()
 )
 
 data class AddressVO(
@@ -60,7 +62,6 @@ data class AddressVO(
     val houseNumber: HouseNumber,
     val areaCode: AreaCode,
     val city: City,
-    val addressByRegion: Map<String, Set<AddressVO>> = emptyMap()
 )
 
 

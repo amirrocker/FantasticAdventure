@@ -3,8 +3,13 @@ package aggregates
 import AddressVO
 import ContactSetVO
 import CreateUserCommand
+import DomainEvent
+import EventStore
+import FirstName
+import LastName
 import PersonalInformationVO
 import UpdateUserCommand
+import User
 import UserCreatedDomainEvent
 import UserId
 import UserReadRepository
@@ -20,16 +25,26 @@ data class UserAggregate(
     val address: AddressVO,
 ) {
 
-    fun handleCreateUserCommand(createUserCommand: CreateUserCommand) =
-        createUserCommand.user.apply {
-            userWriteRepository.addUser(this)
-        }.also {
-            listOf(UserCreatedDomainEvent(it))
-        }
+    fun handleCreateUserCommand(createUserCommand: CreateUserCommand):User {
+        val user = User(
+            createUserCommand.userId,
+            FirstName(createUserCommand.firstName.value),
+            LastName(createUserCommand.lastName.value),
+        )
+        userWriteRepository.addUser(user)
+        return user
+    }
 
-    fun handleUpdateUserCommand(updateUserCommand: UpdateUserCommand) =
-        userWriteRepository.getUser(updateUserCommand.userId).apply {
-            userWriteRepository.addUser(this.copy(userId = updateUserCommand.user.userId, firstName=updateUserCommand.user.firstName))
-//            userWriteRepository.addUser(this.copy(address = address.copy(street = Street("new address"))))
-        }
+    fun handleUpdateUserCommand(updateUserCommand: UpdateUserCommand): User {
+        val user = User(
+            updateUserCommand.userId,
+            FirstName("first"),
+            LastName("last"),
+            updateUserCommand.contacts,
+            updateUserCommand.addresses,
+        )
+        userWriteRepository.addUser(user)
+        return user
+    }
 }
+
