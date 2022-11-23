@@ -7,8 +7,8 @@ interface UserWriteRepository : UserRepository {
 }
 
 interface UserReadRepository : UserRepository {
-    fun getUserAddress(userId:UserId): AddressVO
-    fun getUserContact(userId: UserId):ContactVO
+    fun getUserAddress(userId:UserId): UserAddress
+    fun getUserContact(userId: UserId):UserContact
 }
 
 class InMemoryUserWriteRepository(
@@ -26,11 +26,13 @@ class InMemoryUserReadRepository(
     val service: UserReadService
 ) : UserReadRepository {
 
-    override fun getUserAddress(userId: UserId): AddressVO =
+    override fun getUserAddress(userId: UserId): UserAddress =
         service.getUserAddress(userId)
 
-    override fun getUserContact(userId: UserId): ContactVO =
+
+    override fun getUserContact(userId: UserId): UserContact =
         service.getUserContact(userId)
+
 }
 
 

@@ -8,18 +8,13 @@ class UserWriteService(
 }
 
 class UserReadService(
-    val store: MutableMap<String, User> = mutableMapOf()
+    val addressStore: MutableMap<String, UserAddress> = mutableMapOf(),
+    val contactsStore: MutableMap<String, UserContact> = mutableMapOf()
 ) {
 
-    fun getUserAddress(userId: UserId) = AddressVO(
-        Street("Some Street"),
-        HouseNumber("Some Houser Number"),
-        AreaCode("Some Area Code"),
-        City("Kupiansk")
-    )
+    fun getUserAddress(userId: UserId) = store[userId]
 
-    fun getUserContact(userId: UserId) = ContactVO(
-        ContactType("contact type = email, sms or such"),
-        ContactDetails("contact details")
+    fun getUserContact(userId: UserId) = UserContact(
+
     )
 }

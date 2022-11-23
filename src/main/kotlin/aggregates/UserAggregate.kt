@@ -7,7 +7,6 @@ import DomainEvent
 import EventStore
 import FirstName
 import LastName
-import PersonalInformationVO
 import UpdateUserCommand
 import User
 import UserCreatedDomainEvent
@@ -20,7 +19,6 @@ data class UserAggregate(
     val userId: UserId,
     val userWriteRepository: UserWriteRepository,
     val userReadRepository: UserReadRepository,
-    val personalInformation: PersonalInformationVO,
     val contactSet: ContactSetVO,
     val address: AddressVO,
 ) {

@@ -27,7 +27,7 @@ class CqrsEsTest {
 
         val user = User(userId, FirstName("firstName"), LastName( "lastName"))
 
-        val createUserCommand = CreateUserCommand(userId, user)
+        val createUserCommand = CreateUserCommand(userId, user.firstName, user.lastName)
 
         events + userAggregate.handleCreateUserCommand(createUserCommand)
 
